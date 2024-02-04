@@ -2,8 +2,8 @@
 <?php include "cardMenu.html"; ?>
 </nav>
 <?php
-$objectId = $_POST['objectId'];
-echo $objectId;
+$objectId = $_GET['objectId'];
+//echo $objectId;
 if(true){
 	echo "start <br>";
 	$conn = pg_connect("host=pg3.sweb.ru port=5432 dbname=avkuzbkru user=avkuzbkru password=Klizma000");
@@ -51,6 +51,14 @@ if(true){
 		<p>* данная строка используется при необходимости</p>";
 		echo $out;
 		
+echo "<form id=\"actionForm\" action=\"\">
+<p style=\"text-align: center;\">
+<button name=\"objectId\" value=".$objectId." formmethod=\"GET\" formaction=\"cardAppendForm.php\">Редактировать</button>
+<button formmethod=\"GET\" name=\"objectId\" value=".$objectId." formaction=\"cardDelete.php\">Удалить</button>
+<button name=\"objectExport\" formmethod=\"GET\">Экспорт</button>
+</p>
+</form>";
+
 		pg_close($conn);
 	}
 }

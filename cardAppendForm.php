@@ -9,7 +9,13 @@
 <nav id="cardMenu">
 <?php include "cardMenu.html"; ?>
 </nav>
-
+<?php 
+$objectId = $_GET['objectId'];
+if (isset($objectId)) {
+    echo "Редактирование карточки № ".$objectId;
+    //тут надо грузить в форму поля из БД
+}
+?>
 <pre><code class=" html"></code></pre>
 <form id="inputForm" enctype="multipart/form-data" action="cardWrite.php" method="POST">
 <p><strong>КАРТОЧКА ЭКСКУРСИОННОГО ОБЪЕКТА</strong></p>
