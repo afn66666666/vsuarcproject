@@ -37,17 +37,5 @@
 <p style="text-align: center;"><input name="objectSubmit" type="submit" value="Записать карточку" onclick="checkDate()"/></p>
 </form>
 <p>* данная строка используется при необходимости</p>
-<script>
-        function checkDate() {
-            let inputForm = document.getElementById("inputForm");
-            inputForm.addEventListener("submit", (e) => {
-                e.preventDefault();
-                const date = document.getElementById("objectCardDate");
-                if (date.value == "") {
-                    alert("Заполните поле \"Дата составления карточки\"");
-                }
-            });
-        }
-    </script>
 </body>
 </html>
