@@ -4,7 +4,7 @@
 <title>Математика в археологии</title>
 <meta http-equiv="Content-Type" content="text/html" charset="utf8"/>
 <meta content="nofollow"/>
-	</head>
+</head>
 <body>
 
 <?php include "cardMenu.html"; ?>
