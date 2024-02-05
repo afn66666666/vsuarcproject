@@ -9,7 +9,6 @@
 
 <?php include "cardMenu.html"; ?>
 
-<pre><code class=" html"></code></pre>
 <form id="cardLoadForm" action="cardLoad.php" method="GET">
 <p><strong>КАРТОЧКА ЭКСКУРСИОННОГО ОБЪЕКТА №</strong>
 <input name="objectId" type="text" value="1" /></p>
