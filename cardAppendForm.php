@@ -12,7 +12,7 @@
 <?php 
 $objectId = $_GET['objectId'];
 if (isset($objectId)) {
-    echo "Редактирование карточки № ".$objectId;
+    echo "Редактирование карточки № ".$objectId."</br>";
     //тут надо грузить в форму поля из БД
     $conn = pg_connect("host=pg3.sweb.ru port=5432 dbname=avkuzbkru user=avkuzbkru password=Klizma000");
     if (!$conn) {
@@ -38,8 +38,13 @@ if (isset($objectId)) {
 		$objectAuthorsData = $resRow[7];
 		$objectInformationSource = $resRow[8];
 		$objectMedia = $resRow[9];
-		$objectCardDate = $resRow[10];
+		$objectCardDateS = $resRow[10];
 		
+		preg_match("/^[0-9\.]+/", $objectCardDateS, $objectCardDateM);
+		$objectCardDateN = date_create_immutable($objectCardDateM[0]);
+		$objectCardDate = $objectCardDateN->format('Y-m-d');
+		$cardFormEdit = $objectId;
+		pg_close($conn);
 	}
 }
 else {
@@ -54,6 +59,7 @@ else {
 	$objectInformationSource = "Археологические раскопки";
 	$objectMedia = "";
 	$objectCardDate = "";
+	$cardFormEdit = 0;
 }
 ?>
 <pre><code class=" html"></code></pre>
@@ -61,26 +67,38 @@ else {
 <p><strong>КАРТОЧКА ЭКСКУРСИОННОГО ОБЪЕКТА</strong></p>
 <p>
 <label for="objectName">Наименование объекта</label>
-<input name="objectName" id="objectName" type="text" value="Предмет кремневый" required />
+<input name="objectName" id="objectName" type="text" value="<?= $objectName ?>" required />
 </p>
 <p>
 <label for="objectCommonName">Обиходные названия*</label>
-<input name="objectCommonName" id="objectCommonName" type="text" value="" /></p>
-<p>Место размещения объекта <input name="objectPlace" type="text" value="Археологический музей ВГУ" /></p>
-<p>Время возникновения, открытия объекта <input name="objectCreationTime" type="text" value="Эпоха камня (верхний палеолит)" /></p>
+<input name="objectCommonName" id="objectCommonName" type="text" value="<?= $objectCommonName ?>" /></p>
+<p>
+<label for="objectPlace">Место размещения объекта</label>
+<input name="objectPlace" id="objectPlace" type="text" value="<?= $objectPlace ?>" />
+</p>
+<p>
+<label for="objectCreationTime">Время возникновения, открытия объекта</label>
+<input name="objectCreationTime" id="objectCreationTime" type="text" value="<?= $objectCreationTime ?>" />
+</p>
 <p>
 <label for="objectShortStory">Краткая история объекта</label>
-<textarea name="objectShortStory" id="objectShortStory" style="width: 50%;" required >Найден в 2005 г. при раскопках в музее-заповеднике &laquo;Костёнки&raquo; </textarea></p>
+<textarea name="objectShortStory" id="objectShortStory" style="width: 50%;" required ><?= $objectShortStory ?> </textarea></p>
 <p>
-<label for="objectShortStory">Внешние признаки (особенности стиля, общая характеристика, сохранность)</label>
-<textarea name="objectFeatures" id="objectFeatures" style="width: 50%;" required >Камень (светло-серый валунный кремень), Ретушь. Без видимых повреждений.</textarea></p>
+<label for="objectFeatures">Внешние признаки (особенности стиля, общая характеристика, сохранность)</label>
+<textarea name="objectFeatures" id="objectFeatures" style="width: 50%;" required ><?= $objectFeatures ?></textarea></p>
 <p>
 <label for="objectAuthorsData">Данные об авторах объекта</label>
-<input name="objectAuthorsData" id="objectAuthorsData" type="text" value="Нет данных" style="width: 50%;"/></p>
-<p>Источники сведений об объекте <input name="objectInformationSource" type="text" value="Археологические раскопки" style="width: 50%;"/></p>
-<p>Фотографии или видеоматериалы <input name="objectMedia" type="file" value="" multiple/></p>
-<p>Дата составления карточки <input name="objectCardDate" type="date" value="" required /></p>
-<p style="text-align: center;"><input name="objectSubmit" type="submit" value="Записать карточку" onclick="checkDate()"/></p>
+<input name="objectAuthorsData" id="objectAuthorsData" type="text" value="<?= $objectAuthorsData ?>" style="width: 50%;"/></p>
+<p>Источники сведений об объекте <input name="objectInformationSource" type="text" value="<?= $objectInformationSource ?>" style="width: 50%;"/></p>
+<p>
+<label for="objectMedia">Фотографии или видеоматериалы</label>
+<input name="objectMedia" id="objectMedia" type="file" value="" multiple/></p>
+<p>
+<label for="objectMedia">Дата составления карточки</label>
+<input name="objectCardDate" type="date" value="<?= $objectCardDate ?>" required /></p>
+<input type="hidden" name="formEditAction" value="<?=$cardFormEdit?>">
+<p style="text-align: center;">
+<input name="objectSubmit" type="submit" value="Записать карточку" onclick="checkDate()"/></p>
 </form>
 <p>* данная строка используется при необходимости</p>
 </body>
