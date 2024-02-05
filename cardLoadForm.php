@@ -7,9 +7,7 @@
 </head>
 <body>
 
-<nav id="cardMenu">
 <?php include "cardMenu.html"; ?>
-</nav>
 
 <pre><code class=" html"></code></pre>
 <form id="cardLoadForm" action="cardLoad.php" method="GET">

@@ -1,6 +1,5 @@
-<nav id="cardMenu">
 <?php include "cardMenu.html"; ?>
-</nav>
+
 <?php
 $objectId = $_GET['objectId'];
 if(true){

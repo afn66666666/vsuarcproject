@@ -6,9 +6,9 @@
 <meta content="nofollow"/>
 	</head>
 <body>
-<nav id="cardMenu">
+
 <?php include "cardMenu.html"; ?>
-</nav>
+
 
 <pre><code class=" html"></code></pre>
   <form action="handler.php">
