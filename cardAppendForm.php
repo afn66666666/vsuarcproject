@@ -6,9 +6,9 @@
 <meta content="nofollow"/>
 	</head>
 <body>
-<nav id="cardMenu">
+
 <?php include "cardMenu.html"; ?>
-</nav>
+
 <?php 
 $objectId = $_GET['objectId'];
 if (isset($objectId)) {

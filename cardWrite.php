@@ -1,6 +1,5 @@
-<nav id="cardMenu">
 <?php include "cardMenu.html"; ?>
-</nav>
+
 <?php
 $objectName = $_POST['objectName'];
 $objectCommonName = $_POST['objectCommonName'];
