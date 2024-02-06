@@ -2,7 +2,7 @@
 
 require 'designFile.php';
 
- session_start();
+session_start();
 
 $inputLogin = $_POST['username'];
 $inputPassword = $_POST['password'];
