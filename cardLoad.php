@@ -57,7 +57,7 @@ echo "<form id=\"actionForm\" action=\"\">
 <p style=\"text-align: center;\">
 <button name=\"objectId\" value=".$objectId." formmethod=\"GET\" formaction=\"cardAppendForm.php\">Редактировать</button>
 <button formmethod=\"GET\" name=\"objectId\" value=".$objectId." formaction=\"cardDelete.php\">Удалить</button>
-<button name=\"objectExport\" formmethod=\"GET\" onclick=\"exportHTML();\">Экспорт</button>
+<button name=\"objectExport\" formmethod=\"GET\" onclick=\"exportHTML(); return false;\">Экспорт</button>
 </p>
 </form>";
 		pg_close($conn);
@@ -80,6 +80,5 @@ echo "<form id=\"actionForm\" action=\"\">
        fileDownload.download = 'Карточка_№_<?=$objectId?>.doc';
        fileDownload.click();
        document.body.removeChild(fileDownload);
-       return false;
     }
 </script> 

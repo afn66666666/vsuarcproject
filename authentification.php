@@ -19,7 +19,7 @@ else {
 	$_SESSION['inputLogin'] = $inputLogin;
 	$_SESSION['inputPassword'] = $inputPassword;
 	unset($_session['inputerror']);
-	header('Location:cardMenu.html');
+	header('Location:cardLoadForm.php');
 	die();
 	pg_close();
 }
