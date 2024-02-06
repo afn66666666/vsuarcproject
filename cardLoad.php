@@ -25,6 +25,7 @@ if(true){
 		table, th, td {
 		  border:1px solid black;
 		}</style>
+		<div id=\"source-html\">
 		<h2>Карточка №".$objectId."</h2>
 		<table style=\"width:100%\">
 		<tr><td>Наименование объекта</td>
@@ -48,18 +49,36 @@ if(true){
 		<tr><td>Дата составления карточки</td>
 		<td>".$resRow[10]."</td></tr>
 		</table>
-		<p>* данная строка используется при необходимости</p>";
+		<p>* данная строка используется при необходимости</p>
+		</div>";
 		echo $out;
 		
 echo "<form id=\"actionForm\" action=\"\">
 <p style=\"text-align: center;\">
 <button name=\"objectId\" value=".$objectId." formmethod=\"GET\" formaction=\"cardAppendForm.php\">Редактировать</button>
 <button formmethod=\"GET\" name=\"objectId\" value=".$objectId." formaction=\"cardDelete.php\">Удалить</button>
-<button name=\"objectExport\" formmethod=\"GET\">Экспорт</button>
+<button name=\"objectExport\" formmethod=\"GET\" onclick=\"exportHTML();\">Экспорт</button>
 </p>
 </form>";
-
 		pg_close($conn);
 	}
 }
 ?>
+<script>
+    function exportHTML(){
+       var header = "<html xmlns:o='urn:schemas-microsoft-com:office:office' "+
+            "xmlns:w='urn:schemas-microsoft-com:office:word' "+
+            "xmlns='http://www.w3.org/TR/REC-html40'>"+
+            "<head><meta charset='utf-8'><title>Export HTML to Word Document with JavaScript</title></head><body>";
+       var footer = "</body></html>";
+       var sourceHTML = header+document.getElementById("source-html").innerHTML+footer;
+       
+       var source = 'data:application/vnd.ms-word;charset=utf-8,' + encodeURIComponent(sourceHTML);
+       var fileDownload = document.createElement("a");
+       document.body.appendChild(fileDownload);
+       fileDownload.href = source;
+       fileDownload.download = 'Карточка_№_<?=$objectId?>.doc';
+       fileDownload.click();
+       document.body.removeChild(fileDownload);
+    }
+</script> 
