@@ -11,10 +11,14 @@
 
 <?php 
 $objectId = $_GET['objectId'];
+session_start();
+$login = $_SESSION['inputLogin'];
+$password = $_SESSION['inputPassword'];
+
 if (isset($objectId)) {
     echo "Редактирование карточки № ".$objectId."</br>";
     //тут надо грузить в форму поля из БД
-    $conn = pg_connect("host=pg3.sweb.ru port=5432 dbname=avkuzbkru user=avkuzbkru password=Klizma000");
+    $conn = pg_connect("host=pg3.sweb.ru port=5432 dbname=avkuzbkru user=".$login." password=".$password);
     if (!$conn) {
 	echo "connection error occurred.\n";
 	exit;
@@ -62,7 +66,7 @@ else {
 	$cardFormEdit = 0;
 }
 ?>
-<pre><code class=" html"></code></pre>
+
 <form id="inputForm" enctype="multipart/form-data" action="cardWrite.php" method="POST">
 <p><strong>КАРТОЧКА ЭКСКУРСИОННОГО ОБЪЕКТА</strong></p>
 <p>

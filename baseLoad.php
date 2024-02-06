@@ -5,7 +5,6 @@ $password = $_SESSION['inputPassword'];
 
 if(isset($login, $password)){
 	echo "start <br/>";
-	echo "Список имеющихся карточек <br/>\n";
 	$conn = pg_connect("host=pg3.sweb.ru port=5432 dbname=avkuzbkru user=".$login." password=".$password);
 	if (!$conn) {
 		echo "Ошибка подключения к БД.\n";
@@ -15,7 +14,8 @@ if(isset($login, $password)){
 
 	else{
 		echo "Загрузка карточек из БД успешна<br>";
-		$statementIndices = "SELECT \"Номер карточки\" FROM card_legacy;";
+		echo "<h2>Список имеющихся карточек </h2>";
+		$statementIndices = "SELECT \"Номер карточки\" FROM card_legacy ORDER BY \"Номер карточки\";";
 		$resIndices = pg_query($conn, $statementIndices);
 	if (!$resIndices) {
 		echo "query error occurred.\n";
