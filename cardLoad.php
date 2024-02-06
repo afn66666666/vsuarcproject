@@ -11,7 +11,7 @@ $password = $_SESSION['inputPassword'];
 
 if(isset($login, $password)){
 	echo "start <br>";
-	$conn = pg_connect("host=pg3.sweb.ru port=5432 dbname=avkuzbkru user=".$inputLogin." password=".$inputPassword);
+	$conn = pg_connect("host=pg3.sweb.ru port=5432 dbname=avkuzbkru user=".$login." password=".$password);
 	if (!$conn) {
 		echo "Ошибка подключения к БД.\n";
 		echo "Возможно, необходима <a href=\"authentificationForm.php\">авторизация</a>\n";
@@ -70,7 +70,7 @@ echo "<form id=\"actionForm\" action=\"\">
 	}
 }
 else {
-	echo "Ошибка подключения к БД.\n";
+	echo "Не заданы пароль и логин.\n";
 	echo "Возможно, необходима <a href=\"authentificationForm.php\">авторизация</a>\n";
 }
 ?>

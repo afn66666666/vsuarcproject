@@ -55,7 +55,7 @@ if(isset($login, $password)){
 	}
 }
 else {
-	echo "Ошибка подключения к БД.\n";
+	echo "Не заданы пароль и логин.\n";
 	echo "Возможно, необходима <a href=\"authentificationForm.php\">авторизация</a>\n";
 }
 ?>
