@@ -4,11 +4,17 @@
 <?php
 $objectId = $_GET['objectId'];
 //echo $objectId;
-if(true){
+
+session_start();
+$login = $_SESSION['inputLogin'];
+$password = $_SESSION['inputPassword'];
+
+if(isset($login, $password)){
 	echo "start <br>";
-	$conn = pg_connect("host=pg3.sweb.ru port=5432 dbname=avkuzbkru user=avkuzbkru password=Klizma000");
+	$conn = pg_connect("host=pg3.sweb.ru port=5432 dbname=avkuzbkru user=".$inputLogin." password=".$inputPassword);
 	if (!$conn) {
-		echo "connection error occurred.\n";
+		echo "Ошибка подключения к БД.\n";
+		echo "Возможно, необходима <a href=\"authentificationForm.php\">авторизация</a>\n";
 		exit;
 	}
 	$statement = "SELECT * FROM card_legacy WHERE \"Номер карточки\"=".$objectId.";";
@@ -62,6 +68,10 @@ echo "<form id=\"actionForm\" action=\"\">
 </form>";
 		pg_close($conn);
 	}
+}
+else {
+	echo "Ошибка подключения к БД.\n";
+	echo "Возможно, необходима <a href=\"authentificationForm.php\">авторизация</a>\n";
 }
 ?>
 <script>

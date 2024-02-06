@@ -14,7 +14,7 @@ if(isset($login, $password)){
 	}
 
 	else{
-		echo "load success <br>";
+		echo "Загрузка карточек из БД успешна<br>";
 		$statementIndices = "SELECT \"Номер карточки\" FROM card_legacy;";
 		$resIndices = pg_query($conn, $statementIndices);
 	if (!$resIndices) {
@@ -29,5 +29,9 @@ if(isset($login, $password)){
 		//print_r($resIndices);
 		pg_close($conn);
 	}
+}
+else {
+	echo "Ошибка подключения к БД.\n";
+	echo "Возможно, необходима <a href=\"authentificationForm.php\">авторизация</a>\n";
 }
 ?>

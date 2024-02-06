@@ -18,11 +18,16 @@ $objectImageData = base64_encode(file_get_contents($objectImageFile));
 
 $cardFormEdit = $_POST['formEditAction'];
 
-if(true){
+session_start();
+$login = $_SESSION['inputLogin'];
+$password = $_SESSION['inputPassword'];
+
+if(isset($login, $password)){
 	echo "start <br>";
-	$conn = pg_connect("host=pg3.sweb.ru port=5432 dbname=avkuzbkru user=avkuzbkru password=Klizma000");
+	$conn = pg_connect("host=pg3.sweb.ru port=5432 dbname=avkuzbkru user=".$login." password=".$password);
 	if (!$conn) {
-		echo "connection error occurred.\n";
+		echo "Ошибка подключения к БД.\n";
+		echo "Возможно, необходима <a href=\"authentificationForm.php\">авторизация</a>\n";
 		exit;
 	}
 	if ($cardFormEdit == 0)
@@ -48,5 +53,9 @@ if(true){
         	//Sys::GoHome();
         	//}
 	}
+}
+else {
+	echo "Ошибка подключения к БД.\n";
+	echo "Возможно, необходима <a href=\"authentificationForm.php\">авторизация</a>\n";
 }
 ?>
