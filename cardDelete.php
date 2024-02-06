@@ -3,10 +3,15 @@
 
 <?php
 $objectId = $_GET['objectId'];
-if(true){
+
+session_start();
+$login = $_SESSION['inputLogin'];
+$password = $_SESSION['inputPassword'];
+
+if(isset($login, $password)){
 	echo "start <br>";
 	echo $objectId;
-	$conn = pg_connect("host=pg3.sweb.ru port=5432 dbname=avkuzbkru user=avkuzbkru password=Klizma000");
+	$conn = pg_connect("host=pg3.sweb.ru port=5432 dbname=avkuzbkru user=".$login." password=".$password);
 	if (!$conn) {
 		echo "connection error occurred.\n";
 		exit;
@@ -19,6 +24,11 @@ if(true){
 	}
 	else{
 		echo "delete success <br>";
+		header("Location: cardLoadForm.php");
 	}
 	}
+else {
+	echo "Не заданы пароль и логин.\n";
+	echo "Возможно, необходима <a href=\"authentificationForm.php\">авторизация</a>\n";
+}
 ?>

@@ -46,12 +46,12 @@ if(isset($login, $password)){
 	else{
 		echo "write success <br>";
 		pg_close($conn);
-		//if (@$_SERVER['HTTP_REFERER'] != null) {
-        	//    	header("Location: ".$_SERVER['HTTP_REFERER']);
-        	//}
-        	//else{
-        	//Sys::GoHome();
-        	//}
+		if ($cardFormEdit == 0) {
+        		header("Location: cardLoadForm.php");
+        	}
+        	else{
+        		header("Location: cardLoad.php?objectId=".$cardFormEdit);
+        	}
 	}
 }
 else {
