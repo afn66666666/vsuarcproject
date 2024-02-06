@@ -80,5 +80,6 @@ echo "<form id=\"actionForm\" action=\"\">
        fileDownload.download = 'Карточка_№_<?=$objectId?>.doc';
        fileDownload.click();
        document.body.removeChild(fileDownload);
+       return false;
     }
 </script> 

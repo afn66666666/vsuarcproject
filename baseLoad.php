@@ -8,7 +8,8 @@ if(isset($login, $password)){
 	echo "Список имеющихся карточек <br/>\n";
 	$conn = pg_connect("host=pg3.sweb.ru port=5432 dbname=avkuzbkru user=".$login." password=".$password);
 	if (!$conn) {
-		echo "connection error occurred.\n";
+		echo "Ошибка подключения к БД.\n";
+		echo "Возможно, необходима <a href=\"authentificationForm.php\">авторизация</a>\n";
 		exit;
 	}
 
