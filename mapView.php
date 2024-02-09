@@ -82,6 +82,7 @@
 <body onLoad="map0 = new L.Map('map'); 
     init(map0);">
     <?php
+    include "cardMenu.html";
     session_start();
     $login = $_SESSION['inputLogin'];
     $password = $_SESSION['inputPassword'];
@@ -89,7 +90,7 @@
     $objectPositions = [];
     
     if(isset($login, $password)){
-	echo "start <br/>";
+	//echo "start <br/>";
 	$conn = pg_connect("host=pg3.sweb.ru port=5432 dbname=avkuzbkru user=".$login." password=".$password);
 	if (!$conn) {
 		echo "Ошибка подключения к БД.\n";
@@ -108,7 +109,7 @@
 		while ($objectGeo = pg_fetch_row($resGeo)) {
   			//$objectPositions[] = $objectGeo[1];
   			$objectPositions[] = [$objectGeo[0],json_decode($objectGeo[1],true)];
-  			echo "<br />\n";
+  			//echo "<br />\n";
 		}
 		pg_close($conn);
 	}
@@ -118,7 +119,7 @@ else {
 	echo "Возможно, необходима <a href=\"authentificationForm.php\">авторизация</a>\n";
 }
 ?>
-   <div id="map" style="height: 90%"></div>
+   <div id="map" style="height: 80%"></div>
     <script language="javascript">
     //var namePosition = await getPositionByName('<?=$objectPositions[0][0]?>');
     function placeMarkers(map){
