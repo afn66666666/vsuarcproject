@@ -11,8 +11,8 @@
      crossorigin=""></script>
    
    <script language="javascript">
-      function init() {
-         var map = new L.Map('map');                       
+      function init(map) {
+                                
                 
       	 L.tileLayer('http://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
             attribution: '&copy; <a href="http://openstreetmap.org">OpenStreetMap</a> contributors',
@@ -54,6 +54,7 @@
             var marker = new L.Marker(markerLocation);
             marker.bindPopup('с. Лосево Павловский р-н Воронежской области');
             map.addLayer(marker);
+            //return map;
 
       }
         
@@ -78,7 +79,8 @@
    </script>
    
 </head>
-<body onLoad="javascript:init();">
+<body onLoad="map0 = new L.Map('map'); 
+    init(map0);">
     <?php
     session_start();
     $login = $_SESSION['inputLogin'];
@@ -97,17 +99,17 @@
 
 	else{
 
-		$objectsGeoStat = "SELECT \"Дата раскопок\" FROM card_legacy WHERE (\"Дата раскопок\" IS NOT NULL AND \"Дата раскопок\" <> '');";
+		$objectsGeoStat = "SELECT \"Дата раскопок\", \"Доп. информация о месте\" FROM card_legacy WHERE (\"Дата раскопок\" IS NOT NULL AND \"Дата раскопок\" <> '');";
 		$resGeo = pg_query($conn, $objectsGeoStat);
 	if (!$resGeo) {
 		echo "query error occurred.\n";
 		exit;
 	}
 		while ($objectGeo = pg_fetch_row($resGeo)) {
-  			$objectPositions[] = $objectGeo;
+  			//$objectPositions[] = $objectGeo[1];
+  			$objectPositions[] = [$objectGeo[0],json_decode($objectGeo[1],true)];
   			echo "<br />\n";
 		}
-		echo($objectPositions[0][0]);
 		pg_close($conn);
 	}
 }
@@ -117,10 +119,23 @@ else {
 }
 ?>
    <div id="map" style="height: 90%"></div>
-   <script language="javascript">
+    <script language="javascript">
     //var namePosition = await getPositionByName('<?=$objectPositions[0][0]?>');
-    //alert(namePosition);
+    function placeMarkers(map){
+        
+        <?php
+        for($i = 0; $i < count($objectPositions); $i++)
+        {
+        echo 'var markerLocation = new L.LatLng('.$objectPositions[$i][1][0]['geo_lat'].','.$objectPositions[$i][1][0]['geo_lon'].');
+        //alert(markerLocation);
+        var marker = new L.Marker(markerLocation);
+        marker.bindPopup("'.$objectPositions[$i][0].'");
+        map.addLayer(marker);';
+        }
+        ?>
+    }
    </script>
+   <button onclick="placeMarkers(map0)">Показать раскопки</button>
    
 </body>                                                                                                                          
 </html>
