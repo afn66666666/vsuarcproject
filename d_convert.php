@@ -64,6 +64,14 @@ elseif(strpos($material, 'камень') !== false)
 {
 	$tag = 'Камень';
 }
+elseif(strpos($material, 'лен') !== false)
+{
+	$tag = 'Лен';
+}
+elseif(strpos($material, 'кремень') !== false)
+{
+	$tag = 'Кремень';
+}
 
 $findQuery = "SELECT * FROM material WHERE name = :name";
 $stmt = $pdo->prepare($findQuery);

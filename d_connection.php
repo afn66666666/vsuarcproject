@@ -3,12 +3,8 @@
 
 final class Connection
 {
-    /**
-     * Connection
-     * тип @var
-     */
-    private static $conn = null;
-
+	private static $instance = null;
+	private $dto;
     /**
      * Подключение к базе данных и возврат экземпляра объекта \PDO
      * @return \PDO
@@ -16,13 +12,26 @@ final class Connection
      */
     public function connect()
     {
-         $params = parse_ini_file('database.ini');
+         
+        return $this->pdo;
+    }
+ 
+    public static function get()
+    {
+       if (self::$instance === null) {
+            self::$instance = new Connection();
+        }
+
+        return self::$instance;
+    }
+
+    protected function __construct()
+    {
+$params = parse_ini_file('database.ini');
         if ($params === false) {
 
             throw new Exception("Error reading database configuration file");
         }
-
-echo 'success connection'."\n";
         // подключение к базе данных postgresql
         $conStr = sprintf(
             "pgsql:host=%s;port=%d;dbname=%s;user=%s;password=%s",
@@ -33,22 +42,7 @@ echo 'success connection'."\n";
             $params['password']
         );
 
-        $pdo = new PDO($conStr);
-        $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-        return $pdo;
-    }
- 
-    public static function get()
-    {
-        if (null === static::$conn) {
-            static::$conn = new self();
-        }
-
-        return static::$conn;
-    }
-
-    protected function __construct()
-    {
-
+        $this->pdo = new PDO($conStr);
+        $this->pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
     }
 }
